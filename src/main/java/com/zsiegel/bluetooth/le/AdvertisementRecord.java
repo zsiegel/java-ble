@@ -1,5 +1,7 @@
 package com.zsiegel.bluetooth.le;
 
+import javax.xml.bind.DatatypeConverter;
+
 /**
  * @author zsiegel
  */
@@ -28,5 +30,10 @@ public class AdvertisementRecord {
 
     public String getTypeDescription() {
         return ADType.descriptionForType(this.type);
+    }
+
+    @Override
+    public String toString() {
+        return "[Record length: " + length + " data: " + DatatypeConverter.printHexBinary(data) + "]";
     }
 }

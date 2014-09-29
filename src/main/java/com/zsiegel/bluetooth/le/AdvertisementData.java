@@ -57,4 +57,18 @@ public class AdvertisementData {
     public Map<Integer, AdvertisementRecord> getRecords() {
         return Collections.unmodifiableMap(records);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[Advertisement Data \n --- Records ---\n");
+        for (Integer type : records.keySet()) {
+            builder.append("Type: " + ADType.descriptionForType(type));
+            builder.append("\n");
+            builder.append("Data :" + records.get(type));
+            builder.append("\n");
+        }
+        builder.append("--- END Records ---" + "\n]\n");
+        return builder.toString();
+    }
 }

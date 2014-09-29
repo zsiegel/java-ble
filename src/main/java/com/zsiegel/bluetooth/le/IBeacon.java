@@ -1,6 +1,7 @@
 package com.zsiegel.bluetooth.le;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
@@ -63,60 +64,12 @@ public class IBeacon {
             return;
         }
 
-        companyId = getIntFrom2ByteArray(reverseArray(Arrays.copyOfRange(mfrData, 0, 2)));
-        iBeaconAdvertisement = getIntFrom2ByteArray(Arrays.copyOfRange(mfrData, 2, 4));
-        uuid = uuidFromBytes(Arrays.copyOfRange(mfrData, 4, 20));
-        major = getIntFrom2ByteArray(Arrays.copyOfRange(mfrData, 20, 22));
-        minor = getIntFrom2ByteArray(Arrays.copyOfRange(mfrData, 22, 24));
+        companyId = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 0, 2), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
+        iBeaconAdvertisement = Util.intFromUint16(Arrays.copyOfRange(mfrData, 2, 4));
+        uuid = Util.uuidFromBytes(Arrays.copyOfRange(mfrData, 4, 20));
+        major = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 20, 22), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
+        major = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 22, 24), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
         txPower = mfrData[24];
-    }
-
-    private String uuidFromBytes(byte[] data) {
-        final StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < data.length; i++) {
-            if (i == 4) {
-                sb.append('-');
-            }
-            if (i == 6) {
-                sb.append('-');
-            }
-            if (i == 8) {
-                sb.append('-');
-            }
-            if (i == 10) {
-                sb.append('-');
-            }
-
-            int digit = data[i] & 0xFF;
-            sb.append(Integer.toHexString(digit));
-        }
-
-        return sb.toString();
-    }
-
-    public static int getIntFrom2ByteArray(byte[] data) {
-        final byte[] result = new byte[4];
-
-        result[0] = 0;
-        result[1] = 0;
-        result[2] = data[0];
-        result[3] = data[1];
-
-        return ByteBuffer.wrap(result).getInt();
-    }
-
-    public static byte[] reverseArray(byte[] data) {
-        final int size = data.length;
-        byte temp;
-
-        for (int i = 0; i < size / 2; i++) {
-            temp = data[i];
-            data[i] = data[size - 1 - i];
-            data[size - 1 - i] = temp;
-        }
-
-        return data;
     }
 
     public int getTxPower() {
