@@ -4,6 +4,7 @@ import com.zsiegel.bluetooth.le.util.LittleEndian;
 import com.zsiegel.bluetooth.le.util.Util;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * @author zsiegel
@@ -35,7 +36,7 @@ public class IBeacon {
     private static final byte[] IBEACON_PREFIX = new byte[]{0x4C, 0x00, 0x02, 0x15};
 
     private int txPower, companyId, iBeaconAdvertisement, major, minor = 0;
-    private String uuid = "";
+    private UUID uuid = new UUID(0, 0);
 
     /**
      * Method that determines if the manufacturer data conforms to the ibeacon format
@@ -93,7 +94,7 @@ public class IBeacon {
         return minor;
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 }

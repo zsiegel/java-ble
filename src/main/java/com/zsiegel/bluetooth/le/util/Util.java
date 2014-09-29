@@ -1,34 +1,16 @@
 package com.zsiegel.bluetooth.le.util;
 
 import java.nio.ByteBuffer;
+import java.util.UUID;
 
 /**
  * @author zsiegel (zac.s@akta.com)
  */
 public class Util {
 
-    public static String uuidFromBytes(byte[] data) {
-        final StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < data.length; i++) {
-            if (i == 4) {
-                sb.append('-');
-            }
-            if (i == 6) {
-                sb.append('-');
-            }
-            if (i == 8) {
-                sb.append('-');
-            }
-            if (i == 10) {
-                sb.append('-');
-            }
-
-            int digit = data[i] & 0xFF;
-            sb.append(Integer.toHexString(digit));
-        }
-
-        return sb.toString();
+    public static UUID uuidFromBytes(byte[] data) {
+        ByteBuffer buffer = ByteBuffer.wrap(data);
+        return new UUID(buffer.getLong(), buffer.getLong());
     }
 
     public static int intFromUint16(byte[] data) {
