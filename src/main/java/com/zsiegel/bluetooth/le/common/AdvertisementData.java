@@ -1,4 +1,4 @@
-package com.zsiegel.bluetooth.le;
+package com.zsiegel.bluetooth.le.common;
 
 import java.util.Arrays;
 import java.util.Collections;

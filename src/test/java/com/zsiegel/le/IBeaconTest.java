@@ -1,6 +1,6 @@
 package com.zsiegel.le;
 
-import com.zsiegel.bluetooth.le.IBeacon;
+import com.zsiegel.bluetooth.le.apple.IBeacon;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

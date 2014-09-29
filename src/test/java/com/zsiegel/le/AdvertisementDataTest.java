@@ -1,8 +1,8 @@
 package com.zsiegel.le;
 
-import com.zsiegel.bluetooth.le.ADType;
-import com.zsiegel.bluetooth.le.AdvertisementData;
-import com.zsiegel.bluetooth.le.AdvertisementRecord;
+import com.zsiegel.bluetooth.le.common.ADType;
+import com.zsiegel.bluetooth.le.common.AdvertisementData;
+import com.zsiegel.bluetooth.le.common.AdvertisementRecord;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;

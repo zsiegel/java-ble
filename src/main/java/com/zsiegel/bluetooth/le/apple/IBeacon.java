@@ -1,7 +1,8 @@
-package com.zsiegel.bluetooth.le;
+package com.zsiegel.bluetooth.le.apple;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import com.zsiegel.bluetooth.le.util.LittleEndian;
+import com.zsiegel.bluetooth.le.util.Util;
+
 import java.util.Arrays;
 
 /**
@@ -64,11 +65,11 @@ public class IBeacon {
             return;
         }
 
-        companyId = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 0, 2), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
+        companyId = LittleEndian.getInt(Arrays.copyOfRange(mfrData, 0, 2));
         iBeaconAdvertisement = Util.intFromUint16(Arrays.copyOfRange(mfrData, 2, 4));
         uuid = Util.uuidFromBytes(Arrays.copyOfRange(mfrData, 4, 20));
-        major = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 20, 22), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
-        major = ByteBuffer.wrap(Arrays.copyOf(Arrays.copyOfRange(mfrData, 22, 24), 4)).order(ByteOrder.LITTLE_ENDIAN).getInt();
+        major = LittleEndian.getInt(Arrays.copyOfRange(mfrData, 20, 22));
+        major = LittleEndian.getInt(Arrays.copyOfRange(mfrData, 22, 24));
         txPower = mfrData[24];
     }
 

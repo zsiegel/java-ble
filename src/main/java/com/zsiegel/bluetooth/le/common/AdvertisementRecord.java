@@ -1,4 +1,4 @@
-package com.zsiegel.bluetooth.le;
+package com.zsiegel.bluetooth.le.common;
 
 import javax.xml.bind.DatatypeConverter;
 
